@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -21,8 +22,8 @@ public class UserCreatedListener {
     @Autowired
     ObjectMapper objectMapper;
 
-    @Autowired
-    JavaMailSender javaMailSender;
+//    @Autowired
+//    JavaMailSender javaMailSender;
 
     @Value("${spring.mail.username}")
     String systemUser;
@@ -37,6 +38,7 @@ public class UserCreatedListener {
          */
 
         log.info("************************ SENDING EMAIL TO NEW USER CREATION : START ************************");
+        log.info(" ##### System user "+systemUser);
 
         NotificationUser notificationUser = objectMapper.readValue(message,NotificationUser.class);
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
@@ -47,7 +49,7 @@ public class UserCreatedListener {
                 "" +
                 "" +
                 " We will be crediting some balance in a short time as a good gesture for enrolling in our services. Thanks !");
-        javaMailSender.send(simpleMailMessage);
+        //javaMailSender.send(simpleMailMessage);
         log.info("************************ SENDING EMAIL TO NEW USER CREATION : END  ************************");
 
     }
