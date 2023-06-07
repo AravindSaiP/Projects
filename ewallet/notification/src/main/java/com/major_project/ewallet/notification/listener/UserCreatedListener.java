@@ -22,8 +22,8 @@ public class UserCreatedListener {
     @Autowired
     ObjectMapper objectMapper;
 
-//    @Autowired
-//    JavaMailSender javaMailSender;
+    @Autowired
+    JavaMailSender javaMailSender;
 
     @Value("${spring.mail.username}")
     String systemUser;
@@ -49,7 +49,7 @@ public class UserCreatedListener {
                 "" +
                 "" +
                 " We will be crediting some balance in a short time as a good gesture for enrolling in our services. Thanks !");
-        //javaMailSender.send(simpleMailMessage);
+        javaMailSender.send(simpleMailMessage);
         log.info("************************ SENDING EMAIL TO NEW USER CREATION : END  ************************");
 
     }

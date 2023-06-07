@@ -47,4 +47,14 @@ public class UserService {
     private UserInfo saveOrUpdate(UserInfo userInfo){
         return repository.save(userInfo);
     }
+
+    public UserInfo fetchUserById(Long id){
+        Optional<UserInfo> byId = repository.findById(id);
+        if(byId.isEmpty()) {
+            throw new DuplicateUserException();
+        }
+
+        return byId.get();
+    }
+
 }
